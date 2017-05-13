@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://ongola:8280/services/EU_PAY_BILL?wsdl" uri="wsdl/ongola_8280/services/EU_PAY_BILL.wsdl"/>
+    <system systemId="http://ongola:8280/services/ARCommon.xsd" uri="wsdl/ongola_8280/services/ARCommon.xsd"/>
+    <system systemId="http://ongola:8280/services/AR4BMPInterfaceService.xsd" uri="wsdl/ongola_8280/services/AR4BMPInterfaceService.xsd"/>
+</catalog>

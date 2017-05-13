@@ -1,0 +1,34 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:ar="http://cbs.huawei.com/ar/wsservice/bmpinterface"
+           attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           targetNamespace="http://cbs.huawei.com/ar/wsservice/bmpinterface">
+   <xs:complexType name="SeqList">
+      <xs:all>
+         <xs:element name="SeqId" type="xs:string"/>
+         <xs:element name="Amount" type="xs:string"/>
+      </xs:all>
+   </xs:complexType>
+   <xs:complexType name="PaymentRequest">
+      <xs:sequence>
+         <xs:element name="ApplicationCode" type="xs:string"/>
+         <xs:element name="Password" type="xs:string"/>
+         <xs:element name="TransactionID" type="xs:string"/>
+         <xs:element minOccurs="0" name="AcctId" type="xs:string"/>
+         <xs:element minOccurs="0" name="InvoiceNo" type="xs:string"/>
+         <xs:element name="Amount" type="xs:string"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="PaymentResult">
+      <xs:all>
+         <xs:element name="logId" type="xs:string"/>
+         <xs:element minOccurs="0" name="TrxAmt" type="xs:string"/>
+         <xs:element minOccurs="0" name="AdvAmt" type="xs:string"/>
+         <xs:element minOccurs="0" name="DepAmt" type="xs:string"/>
+         <xs:element minOccurs="0" name="BllAmt" type="xs:string"/>
+         <xs:element minOccurs="0" name="OsAmt" type="xs:string"/>
+         <xs:element minOccurs="0" name="AccountCredit" type="xs:string"/>
+         <xs:element minOccurs="0" name="TaxAmt" type="xs:string"/>
+      </xs:all>
+   </xs:complexType>
+</xs:schema>

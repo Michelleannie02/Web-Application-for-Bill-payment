@@ -1,0 +1,97 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ar="http://cbs.huawei.com/ar/wsservice/bmpinterface" xmlns:common="http://cbs.huawei.com/ar/wsservice/common" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:armsg="http://cbs.huawei.com/ar/wsservice/bmpinterface/armsg" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://cbs.huawei.com/ar/wsservice/bmpinterface">
+   <wsdl:types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://cbs.huawei.com/ar/wsservice/common">
+         <include schemaLocation="ARCommon.xsd"/>
+      </schema>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://cbs.huawei.com/ar/wsservice/bmpinterface">
+         <include schemaLocation="AR4BMPInterfaceService.xsd"/>
+      </schema>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://cbs.huawei.com/ar/wsservice/bmpinterface/armsg">
+         <import namespace="http://cbs.huawei.com/ar/wsservice/common" schemaLocation="ARCommon.xsd"/>
+         <import namespace="http://cbs.huawei.com/ar/wsservice/bmpinterface" schemaLocation="AR4BMPInterfaceService.xsd"/>
+         <element name="PaymentRequestMsg">
+            <complexType>
+               <sequence>
+                  <element name="PaymentRequest" type="ar:PaymentRequest"/>
+               </sequence>
+            </complexType>
+         </element>
+         <element name="PaymentResultMsg">
+            <complexType>
+               <sequence>
+                  <element name="ResultHeader" type="common:ResultHeader"/>
+                  <element minOccurs="0" name="PaymentResult" type="ar:PaymentResult"/>
+               </sequence>
+            </complexType>
+         </element>
+      </schema>
+   </wsdl:types>
+   <wsdl:message name="PaymentRequestMessage">
+      <wsdl:part name="PaymentRequestMsg" element="armsg:PaymentRequestMsg"/>
+   </wsdl:message>
+   <wsdl:message name="PaymentResultMessage">
+      <wsdl:part name="PaymentResultMsg" element="armsg:PaymentResultMsg"/>
+   </wsdl:message>
+   <wsdl:portType name="EU_PAY_BILLPortType">
+      <wsdl:operation name="payment">
+         <wsdl:input message="ar:PaymentRequestMessage" wsaw:Action="payment"/>
+         <wsdl:output message="ar:PaymentResultMessage" wsaw:Action="http://cbs.huawei.com/ar/wsservice/bmpinterface/AR4BMPInterfaceMgr/paymentResponse"/>
+      </wsdl:operation>
+   </wsdl:portType>
+   <wsdl:binding name="EU_PAY_BILLSoap11Binding" type="ar:EU_PAY_BILLPortType">
+      <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+      <wsdl:operation name="payment">
+         <soap:operation soapAction="payment" style="document"/>
+         <wsdl:input>
+            <soap:body use="literal"/>
+         </wsdl:input>
+         <wsdl:output>
+            <soap:body use="literal"/>
+         </wsdl:output>
+      </wsdl:operation>
+   </wsdl:binding>
+   <wsdl:binding name="EU_PAY_BILLSoap12Binding" type="ar:EU_PAY_BILLPortType">
+      <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+      <wsdl:operation name="payment">
+         <soap12:operation soapAction="payment" style="document"/>
+         <wsdl:input>
+            <soap12:body use="literal"/>
+         </wsdl:input>
+         <wsdl:output>
+            <soap12:body use="literal"/>
+         </wsdl:output>
+      </wsdl:operation>
+   </wsdl:binding>
+   <wsdl:binding name="EU_PAY_BILLHttpBinding" type="ar:EU_PAY_BILLPortType">
+      <http:binding verb="POST"/>
+      <wsdl:operation name="payment">
+         <http:operation location="payment"/>
+         <wsdl:input>
+            <mime:content type="text/xml" part="parameters"/>
+         </wsdl:input>
+         <wsdl:output>
+            <mime:content type="text/xml" part="parameters"/>
+         </wsdl:output>
+      </wsdl:operation>
+   </wsdl:binding>
+   <wsdl:service name="EU_PAY_BILL">
+      <wsdl:port name="EU_PAY_BILLHttpSoap11Endpoint" binding="ar:EU_PAY_BILLSoap11Binding">
+         <soap:address location="http://ongola:8280/services/EU_PAY_BILL.EU_PAY_BILLHttpSoap11Endpoint"/>
+      </wsdl:port>
+      <wsdl:port name="EU_PAY_BILLHttpsSoap11Endpoint" binding="ar:EU_PAY_BILLSoap11Binding">
+         <soap:address location="https://ongola:8243/services/EU_PAY_BILL.EU_PAY_BILLHttpsSoap11Endpoint"/>
+      </wsdl:port>
+      <wsdl:port name="EU_PAY_BILLHttpsSoap12Endpoint" binding="ar:EU_PAY_BILLSoap12Binding">
+         <soap12:address location="https://ongola:8243/services/EU_PAY_BILL.EU_PAY_BILLHttpsSoap12Endpoint"/>
+      </wsdl:port>
+      <wsdl:port name="EU_PAY_BILLHttpSoap12Endpoint" binding="ar:EU_PAY_BILLSoap12Binding">
+         <soap12:address location="http://ongola:8280/services/EU_PAY_BILL.EU_PAY_BILLHttpSoap12Endpoint"/>
+      </wsdl:port>
+      <wsdl:port name="EU_PAY_BILLHttpEndpoint" binding="ar:EU_PAY_BILLHttpBinding">
+         <http:address location="http://ongola:8280/services/EU_PAY_BILL.EU_PAY_BILLHttpEndpoint"/>
+      </wsdl:port>
+      <wsdl:port name="EU_PAY_BILLHttpsEndpoint" binding="ar:EU_PAY_BILLHttpBinding">
+         <http:address location="https://ongola:8243/services/EU_PAY_BILL.EU_PAY_BILLHttpsEndpoint"/>
+      </wsdl:port>
+   </wsdl:service>
+</wsdl:definitions>
